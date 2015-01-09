@@ -68,10 +68,6 @@ func httpGet(request string) {
 		return
 	}
 	defer response.Body.Close()
-	if response.Status != "200 OK" {
-		fmt.Println("STATUS", response.Status)
-		return
-	}
 	b, _ := httputil.DumpResponse(response, false)
 	write("HEADER", b)
 
@@ -84,6 +80,7 @@ func httpGet(request string) {
 			write("DATA", buf[0:n])
 		}
 		if err == io.EOF {
+			fmt.Println("END")
 			return
 		}
 		if err != nil {
@@ -103,5 +100,5 @@ func write(s string, b []byte) {
 }
 
 func trace(args ...interface{}) {
-	fmt.Println(args...)
+	//fmt.Println(args...)
 }
